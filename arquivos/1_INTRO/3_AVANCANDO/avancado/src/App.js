@@ -6,6 +6,7 @@ import ListRender from './components/ListRender';
 import ManageData from './components/ManageData';
 import ShowUserName from './components/ShowUserName';
 import Fragment from './components/Fragment';
+import Container from './components/Container';
 
 function App() {
   const usuario = {nome: "Lázaro",idade:46};
@@ -33,6 +34,10 @@ function App() {
         />
       ))}
       <Fragment />
+      <Container myValue="Teste">
+        {/*Conteúdo que será impresso dentro do componente*/}
+        <p>Este é o conteúdo do children</p>
+      </Container>
       {/*Imagem em public*/}
       <div>
         <img src="/img1.jpg" alt="Paisagem"/>
@@ -41,6 +46,7 @@ function App() {
        <div>
         <img src={City} alt="Cidade"/>
       </div>
+  
     </div>
   );
 }
