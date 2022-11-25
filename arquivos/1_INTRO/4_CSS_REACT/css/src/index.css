@@ -9,3 +9,12 @@ h1 {
   color: red;
 }
 
+.red-title{
+  background-color: aquamarine;
+  font-size: x-large;
+}
+
+.title {
+  background-color: chocolate;
+  font-size: xx-small;
+}
