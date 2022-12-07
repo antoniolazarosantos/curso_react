@@ -6,19 +6,29 @@ import {ITask} from '../interfaces/Task';
 
 interface Props {
   taskList: ITask[];
+  handleDelete(id:number):void;
 }
 
-const TaskList = ({taskList} : Props) => {
+const TaskList = ({taskList, handleDelete} : Props) => {
+  const low_difficult = 6;
   return (
     <>
     {taskList.length > 0 ? (
       taskList.map((task) => (
-        <div key={task.id}>
-          <p>{task.title}</p>
+        <div key={task.id} className={styles.task}>
+          <div className={styles.details}> 
+            <h4 className={task.difficult >= low_difficult ? styles.high_difficult : "" }>{task.title}</h4>
+            <p className={task.difficult >= low_difficult ? styles.high_difficult : "" }>Dificuldade: {task.difficult}</p>
+          </div>
+          <div className={styles.actions}>
+            <i className="bi bi-pencil"></i>
+            <i className="bi bi-trash" onClick={() =>{handleDelete(task.id)}}></i>
+          </div>
+         
         </div>
       ))
     ) : (
-      <p>Não há tarefas cadastradas!</p>
+      <p className={styles.emptyTask}>Não há tarefas cadastradas!</p>
     )}
     </>
   )

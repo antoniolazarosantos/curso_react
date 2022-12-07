@@ -23,8 +23,6 @@ const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
 
     setTitle("");
     setDifficult(0);
-    console.log(taskList);
-
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
