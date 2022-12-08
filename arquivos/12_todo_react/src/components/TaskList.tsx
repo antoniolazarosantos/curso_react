@@ -7,9 +7,10 @@ import {ITask} from '../interfaces/Task';
 interface Props {
   taskList: ITask[];
   handleDelete(id:number):void;
+  handleEdit(task:ITask):void;
 }
 
-const TaskList = ({taskList, handleDelete} : Props) => {
+const TaskList = ({taskList, handleDelete, handleEdit} : Props) => {
   const low_difficult = 6;
   return (
     <>
@@ -21,7 +22,7 @@ const TaskList = ({taskList, handleDelete} : Props) => {
             <p className={task.difficult >= low_difficult ? styles.high_difficult : "" }>Dificuldade: {task.difficult}</p>
           </div>
           <div className={styles.actions}>
-            <i className="bi bi-pencil"></i>
+            <i className="bi bi-pencil" onClick={()=>{handleEdit(task)}}></i>
             <i className="bi bi-trash" onClick={() =>{handleDelete(task.id)}}></i>
           </div>
          
