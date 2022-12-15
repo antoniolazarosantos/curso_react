@@ -1,12 +1,15 @@
 import React from 'react';
-import styles from './Navbar.module.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+
+import './Navbar.css';
 
 const Navbar = () => {
   return (
     <nav>
-        <Link to="/">Início</Link>
-        <Link to="/about">Sobre</Link>        
+        <NavLink to="/">Início</NavLink>
+        <NavLink to="/about">Sobre</NavLink>   
+        <NavLink to="/teste" className={({isActive}) => (isActive ? "ativo" : "nao-ativo")}>Teste</NavLink>
+        <NavLink to="/outro-teste" className={({isActive}) => (isActive ? "ativo" : "nao-ativo")}>Outro Teste</NavLink>     
     </nav>
   )
 }
