@@ -8,9 +8,8 @@ export const CounterContext = createContext();
 // 2 - Criar Provider
 
 export const CounterContextProvider = ({children}) => {
-    const [counter,setCounter] = useState(15);
+    const [counter,setCounter] = useState(0);
     return (
-        // eslint-disable-next-line react/jsx-no-undef
         <CounterContext.Provider value={{ counter, setCounter }}>
             {children}
         </CounterContext.Provider>
