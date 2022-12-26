@@ -16,7 +16,7 @@ const Home = () => {
 
     // Alterando state complexo
     const setTitleColor = (color) => {
-      dispatch({type:color});
+      dispatch({ type:color });
     }
   return (
     <div>
