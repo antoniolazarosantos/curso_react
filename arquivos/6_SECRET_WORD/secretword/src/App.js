@@ -26,13 +26,24 @@ const stages = [
 function App() {
   const [gameStage,setgameStage] = useState(stages[0].name);
   const [words] = useState(wordsList);
-  console.log(words);
+  
+  const startGame = () => {
+    setgameStage(stages[GAME].name);
+  };
+
+  const verifyLetter = () =>{
+    setgameStage(stages[END].name);
+  }
+  
+  const retry = () => {
+    setgameStage(stages[START].name);
+  }
 
   return (
     <div className="App">
-      {gameStage === stages[START].name && <StartScreen/> }
-      {gameStage === stages[GAME].name && <Game /> }
-      {gameStage === stages[END].name && <GameOver/> }
+      {gameStage === stages[START].name && <StartScreen startGame={startGame}/> }
+      {gameStage === stages[GAME].name && <Game verifyLetter={verifyLetter}/> }
+      {gameStage === stages[END].name && <GameOver retry={retry}/> }
     </div>
   );
 }
