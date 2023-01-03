@@ -61,8 +61,9 @@ function App() {
     setgameStage(stages[GAME].name);
   };
 
-  const verifyLetter = () =>{
-    setgameStage(stages[END].name);
+  const verifyLetter = (letter) =>{
+    //setgameStage(stages[END].name);
+    console.log(letter);
   }
   
   const retry = () => {
