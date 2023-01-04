@@ -41,7 +41,7 @@ function App() {
    // Pontuação
    const [score,setScore] = useState(0);
   
-  const pickWordAndCategory = () => {
+  const pickWordAndCategory = useCallback(() => {
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
 
@@ -49,9 +49,9 @@ function App() {
 
     return {word, category};
 
-  }
+  },[words]);
 
-  const startGame = () => {
+  const startGame = useCallback(() => {
     const {word, category} = pickWordAndCategory();
     let wordLetters = word.split("");
     wordLetters = wordLetters.map((l) => l.toLowerCase());
@@ -59,10 +59,9 @@ function App() {
     setPickedCategory(category);
     setPickedWord(word);
     setLetters(wordLetters);
-
-
+    clearLettersStates();
     setgameStage(stages[GAME].name);
-  };
+  },[pickWordAndCategory]);
 
   const verifyLetter = (letter) =>{
     const normalizedLetter = letter.toLowerCase();
@@ -73,7 +72,6 @@ function App() {
 
     if (letters.includes(normalizedLetter)){
       setGuessedLetters((actualGuessedLetters) => [...actualGuessedLetters,normalizedLetter]);
-      setScore((p) => (p + 1 ) * PESO)
     } else {
       setWrongLetters((actualWrongLetters) => [...actualWrongLetters,normalizedLetter]);
       setGuesses((actualGuesses) => actualGuesses -1);
@@ -93,7 +91,18 @@ function App() {
       setgameStage(stages[END].name);
     }
 
-  },[guesses])
+  },[guesses]);
+
+  useEffect(() => {
+
+      const uniqueLetters = [...new Set(letters)];
+      if (guessedLetters.length === uniqueLetters.length){
+        setScore((x) => x += PESO)
+        startGame();
+        
+      }
+    
+  },[guessedLetters, letters, startGame])
   
   const retry = () => {
     setGuesses(MAXIMO_DE_TENTATIVAS);
