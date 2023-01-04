@@ -22,6 +22,9 @@ const stages = [
   {id:3,name:"end"},
 ];
 
+const MAXIMO_DE_TENTATIVAS = 3;
+const PESO = 100;
+
 
 function App() {
   const [gameStage,setgameStage] = useState(stages[0].name);
@@ -34,7 +37,7 @@ function App() {
    // Letras erradas
    const [wrongLetters,setWrongLetters] = useState([]);
    // Tentativas do usuário
-   const [guesses,setGuesses] = useState(3);
+   const [guesses,setGuesses] = useState(MAXIMO_DE_TENTATIVAS);
    // Pontuação
    const [score,setScore] = useState(0);
   
@@ -70,13 +73,31 @@ function App() {
 
     if (letters.includes(normalizedLetter)){
       setGuessedLetters((actualGuessedLetters) => [...actualGuessedLetters,normalizedLetter]);
+      setScore((p) => (p + 1 ) * PESO)
     } else {
       setWrongLetters((actualWrongLetters) => [...actualWrongLetters,normalizedLetter]);
-    }
+      setGuesses((actualGuesses) => actualGuesses -1);
+    }   
 
   }
+
+  const clearLettersStates = () => {
+    setGuessedLetters([]);
+    setWrongLetters([]); 
+  }
+
+  useEffect(() => {
+
+    if (guesses <= 0){
+      clearLettersStates();
+      setgameStage(stages[END].name);
+    }
+
+  },[guesses])
   
   const retry = () => {
+    setGuesses(MAXIMO_DE_TENTATIVAS);
+    setScore(0);
     setgameStage(stages[START].name);
   }
 
@@ -94,7 +115,7 @@ function App() {
        score={score}
        /> }
 
-      {gameStage === stages[END].name && <GameOver retry={retry}/> }
+      {gameStage === stages[END].name && <GameOver retry={retry} score={score}/>  }
     </div>
   );
 }
