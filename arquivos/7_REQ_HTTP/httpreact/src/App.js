@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from "react";
+import {useState, useRef} from "react";
 // Custom Hook
 import { useFetch } from './hooks/useFetch';
 
@@ -7,9 +7,11 @@ import { useFetch } from './hooks/useFetch';
 const URL_BASE = "http://localhost:3000/products";
 
 function App() {
-  const [products,setProducts] = useState([]);
+  //const [products,setProducts] = useState([]);
   const [name,setName] = useState("");
   const [price,setPrice] = useState("");
+
+  const nameInputRef = useRef(null);
 
   const {data: items, httpConfig } = useFetch(URL_BASE);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,6 +43,7 @@ function App() {
   httpConfig(product,"POST");
   setName("");
   setPrice("");
+  nameInputRef.current.focus();
   
 };
 
@@ -56,7 +59,11 @@ function App() {
         <form onSubmit={handleSubmit}>
           <label>
             Nome:
-            <input type="text" name="name" value={name} onChange={(e)=> setName(e.target.value)} />
+            <input type="text" 
+            name="name"
+             value={name} 
+             onChange={(e)=> setName(e.target.value)}
+             ref={nameInputRef} />
           </label>
           <label>
             Valor:

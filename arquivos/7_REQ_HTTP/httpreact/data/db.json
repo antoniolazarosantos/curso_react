@@ -54,6 +54,16 @@
       "name": "Sundown Hinode",
       "price": "134",
       "id": 11
+    },
+    {
+      "name": "Bola de Tênis",
+      "price": "35",
+      "id": 12
+    },
+    {
+      "name": "Raquete de Tênis",
+      "price": "85",
+      "id": 13
     }
   ]
 }
