@@ -39,6 +39,21 @@
       "name": "Ar condicionado ",
       "price": "3450",
       "id": 8
+    },
+    {
+      "name": "Colírio Patanol S",
+      "price": "70",
+      "id": 9
+    },
+    {
+      "name": "Suporte para Celular",
+      "price": "16",
+      "id": 10
+    },
+    {
+      "name": "Sundown Hinode",
+      "price": "134",
+      "id": 11
     }
   ]
 }

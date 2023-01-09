@@ -1,5 +1,7 @@
 import './App.css';
-import {useState, useEffect} from "react";
+import {useState} from "react";
+// Custom Hook
+import { useFetch } from './hooks/useFetch';
 
 
 const URL_BASE = "http://localhost:3000/products";
@@ -9,39 +11,44 @@ function App() {
   const [name,setName] = useState("");
   const [price,setPrice] = useState("");
 
+  const {data: items, httpConfig } = useFetch(URL_BASE);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect (() => {
-    async function fetchData() {
-      const res = await fetch(URL_BASE);
-      const data = await res.json();
-      setProducts(data);
-    }
-    fetchData();    
-  },[]);
+  // useEffect (() => {
+  //   async function fetchData() {
+  //     const res = await fetch(URL_BASE);
+  //     const data = await res.json();
+  //     setProducts(data);
+  //   }
+  //   fetchData();    
+  // },[]);
 
   // Adicionando dados ao banco de dados
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Quando os states possuem os mesmos nomes das chaves, não precisa atribuir.
-    const product = {name,price}; 
-    const res = await fetch(URL_BASE,{
-      method:"POST",
-      headers: {
-        "Content-Type" : "application/json"
-      },
-      body: JSON.stringify(product)
-  });
-  const addedProduct = await res.json();
-  setProducts((prevProducts) => [...prevProducts,addedProduct]);
+     const product = {name,price}; 
+  //   const res = await fetch(URL_BASE,{
+  //     method:"POST",
+  //     headers: {
+  //       "Content-Type" : "application/json"
+  //     },
+  //     body: JSON.stringify(product)
+  // });
+  // const addedProduct = await res.json();
+  // setProducts((prevProducts) => [...prevProducts,addedProduct]);
+ 
+  //Refatoração do POST
+  httpConfig(product,"POST");
   setName("");
   setPrice("");
+  
 };
 
   return (
     <div className="App">
       <h1>Lista de Produtos</h1>
       <ul>
-        { products.map((product) => (
+        { items && items.map((product) => (
           <li key={product.id}>{product.name} - R$: {product.price}</li>
         ))}
       </ul>
