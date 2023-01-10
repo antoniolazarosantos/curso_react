@@ -74,6 +74,16 @@
       "name": "Suporte para Monitor",
       "price": "200",
       "id": 15
+    },
+    {
+      "name": "Mouse com Fio",
+      "price": "10",
+      "id": 16
+    },
+    {
+      "name": "Teclado com Fio",
+      "price": "100",
+      "id": 19
     }
   ]
 }

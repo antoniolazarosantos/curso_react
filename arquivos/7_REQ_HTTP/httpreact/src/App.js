@@ -13,7 +13,7 @@ function App() {
 
   const nameInputRef = useRef(null);
 
-  const {data: items, httpConfig, loading } = useFetch(URL_BASE);
+  const {data: items, httpConfig, loading, error } = useFetch(URL_BASE);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // useEffect (() => {
   //   async function fetchData() {
@@ -51,7 +51,8 @@ function App() {
     <div className="App">
       <h1>Lista de Produtos</h1>
       {loading && <p>Carregando dados...</p>}
-      {! loading &&
+      {error && <p>{error}</p>}
+      {! error &&
       <ul>
         { items && items.map((product) => (
           <li key={product.id}>{product.name} - R$: {product.price}</li>
@@ -65,13 +66,19 @@ function App() {
             name="name"
              value={name} 
              onChange={(e)=> setName(e.target.value)}
-             ref={nameInputRef} />
+             ref={nameInputRef} 
+             required/>
           </label>
           <label>
             Valor:
-            <input type="number" name="price" value={price} onChange={(e)=> setPrice(e.target.value)} />
+            <input type="number" 
+            name="price" 
+            value={price} 
+            onChange={(e)=> setPrice(e.target.value)} 
+            required/>
           </label>
-          <input type="submit" value="Criar"/>
+          {loading && <input type="submit" value="Aguarde" disabled/>}
+          {!loading && <input type="submit" value="Criar"/>}
         </form>
       </div>
     </div>
