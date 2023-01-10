@@ -64,6 +64,16 @@
       "name": "Raquete de Tênis",
       "price": "85",
       "id": 13
+    },
+    {
+      "name": "Optive Colírio",
+      "price": "100",
+      "id": 14
+    },
+    {
+      "name": "Suporte para Monitor",
+      "price": "200",
+      "id": 15
     }
   ]
 }

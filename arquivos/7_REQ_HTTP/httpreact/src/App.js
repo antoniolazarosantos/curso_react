@@ -13,7 +13,7 @@ function App() {
 
   const nameInputRef = useRef(null);
 
-  const {data: items, httpConfig } = useFetch(URL_BASE);
+  const {data: items, httpConfig, loading } = useFetch(URL_BASE);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // useEffect (() => {
   //   async function fetchData() {
@@ -50,11 +50,13 @@ function App() {
   return (
     <div className="App">
       <h1>Lista de Produtos</h1>
+      {loading && <p>Carregando dados...</p>}
+      {! loading &&
       <ul>
         { items && items.map((product) => (
           <li key={product.id}>{product.name} - R$: {product.price}</li>
         ))}
-      </ul>
+      </ul>}
       <div className="add-product">
         <form onSubmit={handleSubmit}>
           <label>
